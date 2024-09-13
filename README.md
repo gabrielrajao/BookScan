@@ -1,5 +1,5 @@
 ![Book Scan logo](/docs/imgs/logo_Main.png "Book Scan logo")
-
+<img src="/docs/imgs/logo_Main.png" alt="Book Scan logo" width="1000"/>
 #  Integrantes
 * Gabriel Martins Rajão - Backend
 * Guilherme de Almeida Santos - Inteligência Artificial
