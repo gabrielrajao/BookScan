@@ -20,27 +20,27 @@ Flexible CardBody(avaliacoes) {
       children: [
         Icon(
           Icons.star,
-          color: Color(0xFF2BCBFF),
+          color: textColor,
           size: 14,
         ),
         Icon(
           Icons.star,
-          color: Color(0xFF2BCBFF),
+          color: textColor,
           size: 14,
         ),
         Icon(
           Icons.star,
-          color: Color(0xFF2BCBFF),
+          color: textColor,
           size: 14,
         ),
         Icon(
           Icons.star,
-          color: Color(0xFF2BCBFF),
+          color: textColor,
           size: 14,
         ),
         Icon(
           Icons.star_outline,
-          color: Color(0xFF2BCBFF),
+          color: textColor,
           size: 14,
         ),
       ],
@@ -49,7 +49,7 @@ Flexible CardBody(avaliacoes) {
   return Flexible(
       child: Text(
     "Gênero:\tTerror \nAutor:\tArthur Silva\nPreço:\tRS23,99",
-    style: TextStyle(fontSize: 10, color: Color(0xFF2BCBFF)),
+    style: TextStyle(fontSize: 10, color: textColor),
   ));
 }
 
@@ -58,7 +58,7 @@ Column CardMaker(avaliacoes, _itens, index) {
     Image.network('https://media.istockphoto.com/id/1472933890/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment-placeholder.jpg?s=612x612&w=0&k=20&c=Rdn-lecwAj8ciQEccm0Ep2RX50FCuUJOaEM8qQjiLL0=', height: 55, width: 100, scale: 1,),
     Text(_itens[index]["titulo"],
         style: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: iconColor)),
+            fontSize: 14, fontWeight: FontWeight.bold, color: textColor)),
     CardBody(avaliacoes)
   ]);
 }
@@ -74,12 +74,8 @@ Container getLista(bool avaliacoes) {
         margin: EdgeInsets.all(15),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            gradient: LinearGradient(
-              colors: [Color(0xffe1dcdc), Color(0xffc1f0ff)],
-              stops: [0, 0.7],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-            )),
+            color: backColor,
+        ),
         padding: EdgeInsets.all(10),
         child: CardMaker(avaliacoes, _itens, index),
       );

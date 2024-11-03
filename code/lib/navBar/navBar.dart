@@ -36,13 +36,7 @@ Container navBar(BuildContext context){
 
   return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(gradient: LinearGradient(
-        colors: [Color(0xffe1dcdc), Color(0xffc1f0ff)],
-        stops: [0, 0.7],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      )
-      ),
+      decoration: const BoxDecoration( color: backColor,),
       height: 108,
       child:
 

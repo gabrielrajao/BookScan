@@ -17,7 +17,7 @@ class _Search extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Color(0xffffffff),
       appBar: getAppBar(context, _textEditingController),
       body: getLista(),
     );

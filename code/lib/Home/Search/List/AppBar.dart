@@ -7,7 +7,7 @@ PreferredSize getAppBar(BuildContext context, TextEditingController _textEditing
       elevation: 0,
       flexibleSpace: Container(
         decoration: const BoxDecoration(gradient: LinearGradient(
-          colors: [Color(0xFFEFFBFF), Color(0xffc1f0ff)],
+          colors: [Color(0xffffffff), backColor],
           stops: [0, 0.7],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,

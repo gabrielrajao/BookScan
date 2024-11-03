@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../style.dart';
 
 List _carregarItens() {
   List _itens = [];
@@ -21,8 +22,7 @@ void tapReact(context, _itens, indice) {
           title: Text(_itens[indice]["titulo"]),
           titleTextStyle: TextStyle(
             fontSize: 20,
-            color: Colors.red,
-            backgroundColor: Colors.yellow,
+            color: textColor,
           ),
           content: Text(_itens[indice]["descricao"]),
           actions: <Widget>[
@@ -52,21 +52,16 @@ Container getLista() {
         itemBuilder: (context, indice) {
           return Container(
               height: 90,
-              margin: EdgeInsets.symmetric(horizontal: 0.5 , vertical: 6),
+              margin: EdgeInsets.symmetric(horizontal: 8 , vertical: 6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                  gradient: LinearGradient(
-                colors: [Color(0xffe1dcdc), Color(0xffc1f0ff)],
-                stops: [0, 0.53],
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-              )),
+                  color: backColor),
               child: ListTile(
                 onTap: () {
                   tapReact(context, _itens, indice);
                 },
-                title: Text(_itens[indice]["titulo"], style: TextStyle(color: Color(0xFF0702FD)),),
-                subtitle: Text(_itens[indice]["descricao"], style: TextStyle(color: Color(0xFF0095C5)),),
+                title: Text(_itens[indice]["titulo"], style: TextStyle(color: textColor),),
+                subtitle: Text(_itens[indice]["descricao"], style: TextStyle(color:textColor),),
               ));
         }),
   );
