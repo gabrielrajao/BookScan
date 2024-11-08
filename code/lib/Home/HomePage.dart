@@ -5,6 +5,8 @@ import './barcodeScanner/Scanner.dart';
 import '../style.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import '../BookDetails/Reviewinfos.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,7 +60,19 @@ class _HomePage extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
 
+    if (_barcodeCapture != null) {
+      Future.delayed(Duration(milliseconds: 20), (){
+        if(context.mounted) {
+          Navigator.popAndPushNamed(context, "/bookdetails",
+              arguments: Reviewinfos(
+                  _barcodeCapture?.barcodes.firstOrNull?.displayValue ??
+                      'Error: No barcode detected', -1));
+        }
+      });
 
+
+
+    }
 
     return Scaffold(
       body: Stack( alignment: Alignment.bottomCenter, children: [ scanner,

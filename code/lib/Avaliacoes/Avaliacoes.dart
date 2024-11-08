@@ -18,7 +18,15 @@ class _Avaliacoes extends State<Avaliacoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar( automaticallyImplyLeading: false, backgroundColor: Colors.transparent, title: const Text("Avaliações"),),
+      appBar: AppBar( automaticallyImplyLeading: false, backgroundColor: Colors.transparent, title: const Text("Avaliações"),actions: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, "/user");
+            },
+            style: circleBtnStyleSmall,
+            child: const Icon(Icons.person)
+        ),
+      ]),
       body: getLista(true),
       bottomNavigationBar: navBar(context),
     );

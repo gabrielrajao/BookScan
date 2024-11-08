@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../style.dart';
+import '../DataBase/UserDB.dart';
 
 Container navBar(BuildContext context){
 
@@ -46,19 +47,37 @@ Container navBar(BuildContext context){
         Flexible(
             child: Column(
                 children:[
-        ElevatedButton(onPressed: () {
-          if(ModalRoute.of(context)?.settings.name?.compareTo("/avaliacoes") != 0) {
-            Navigator.popAndPushNamed(
-              context,
-              '/avaliacoes',
-            );
-          }
-        },
-          style: bss,
-          child: star,
-        ),
-          const Text("Avaliações", style: TextStyle(color: iconColor, fontWeight: FontWeight.bold)),
-        ])
+              ElevatedButton(onPressed: () async {
+                  int userId = (await UserDB.getLogged());
+                  if(context.mounted && userId > -2) {
+                    if (userId == -1) {
+                      if (ModalRoute
+                          .of(context)
+                          ?.settings
+                          .name
+                          ?.compareTo("/cadastro") != 0) {
+                        Navigator.popAndPushNamed(context, "/cadastro");
+                      }
+                    }
+                    else{
+                      if (ModalRoute
+                          .of(context)
+                          ?.settings
+                          .name
+                          ?.compareTo("/avaliacoes") != 0) {
+                        Navigator.popAndPushNamed(
+                          context,
+                          '/avaliacoes',
+                        );
+                      }
+                    }
+                  }
+              },
+                style: bss,
+                child: star,
+              ),
+              const Text("Avaliações", style: TextStyle(color: iconColor, fontWeight: FontWeight.bold)),
+            ])
         ),
         Flexible(
             child: Column(
@@ -80,12 +99,22 @@ Container navBar(BuildContext context){
         Flexible(
             child: Column(
                 children:[
-                  ElevatedButton(onPressed: () {
-                    if(ModalRoute.of(context)?.settings.name?.compareTo("/recomendacoes") != 0) {
-                      Navigator.popAndPushNamed(
-                        context,
-                        '/recomendacoes',
-                      );
+                  ElevatedButton(onPressed: () async {
+                    int userId = (await UserDB.getLogged());
+                    if(context.mounted && userId > -2){
+                      if( userId == -1){
+                        if (ModalRoute.of(context)?.settings.name?.compareTo("/cadastro") != 0){
+                          Navigator.popAndPushNamed(context, "/cadastro");
+                        }
+                      }
+                      else{
+                        if(ModalRoute.of(context)?.settings.name?.compareTo("/recomendacoes") != 0) {
+                          Navigator.popAndPushNamed(
+                            context,
+                            '/recomendacoes',
+                          );
+                        }
+                      }
                     }
                   },
                     style: bsb,

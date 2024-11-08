@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import './Error.dart';
+import '../../BookDetails/Reviewinfos.dart';
 
 import './Label.dart';
 
@@ -101,6 +102,17 @@ class _BarcodeScannerWithScanWindowState
             errorBuilder: (context, error, child) {
               return ScannerErrorWidget(error: error);
             },
+            onDetect: (barcodeCapture){
+              Future.delayed(Duration(milliseconds: 20), (){
+                if(context.mounted) {
+                  Navigator.popAndPushNamed(context, "/bookdetails",
+                      arguments: Reviewinfos(
+                          barcodeCapture.barcodes.firstOrNull?.displayValue ??
+                              'Error: No barcode detected', -1));
+                }
+              });
+
+              },
           ),
           _buildBarcodeOverlay(),
           _buildScanWindow(scanWindow),

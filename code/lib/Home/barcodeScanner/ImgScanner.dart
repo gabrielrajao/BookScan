@@ -42,10 +42,9 @@ class _BarcodeScannerAnalyzeImageState
     Widget label = const Text('Pick a file to detect barcode');
 
     if (_barcodeCapture != null) {
-      label = Text(
-        _barcodeCapture?.barcodes.firstOrNull?.displayValue ??
-            'No barcode detected',
-      );
+      print("cletion");
+      print(_barcodeCapture?.barcodes.firstOrNull?.displayValue ??
+            'No barcode detected');
     }
 
     return Scaffold(
