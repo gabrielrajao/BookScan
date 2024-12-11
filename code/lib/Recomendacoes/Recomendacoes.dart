@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import '../navBar/navBar.dart';
 import '../style.dart';
-import '../Avaliacoes/List/List.dart';
+import './List/List.dart';
+
+
 
 class Recomendacoes extends StatefulWidget {
   const Recomendacoes({super.key});
-
   @override
   _Recomendacoes createState() => _Recomendacoes();
 }
 
 
 
+
 class _Recomendacoes extends State<Recomendacoes> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,22 @@ class _Recomendacoes extends State<Recomendacoes> {
             child: const Icon(Icons.person)
         ),
       ]),
-      body: getLista(false),
+      body: FutureBuilder<Container>(
+        future: getLista(true, context),
+        builder: (context, snapshot){
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator(); // Show loading indicator
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}'); // Show error message
+          } else if (snapshot.hasData) {
+            return snapshot.data ?? Text("ERRO");
+          } else {
+            return Text('ERRO DESCONHECIDO'); // In case of no data
+          }
+
+
+        },
+      ),
       bottomNavigationBar: navBar(context),
     );
   }

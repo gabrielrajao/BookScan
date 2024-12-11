@@ -23,6 +23,7 @@ class _HomePage extends State<HomePage>{
   BarcodeScannerWithScanWindow scanner = BarcodeScannerWithScanWindow();
 
 
+
   final MobileScannerController _controller = MobileScannerController();
 
   BarcodeCapture? _barcodeCapture;
@@ -59,6 +60,8 @@ class _HomePage extends State<HomePage>{
 
   @override
   Widget build(BuildContext context) {
+
+
 
     if (_barcodeCapture != null) {
       Future.delayed(Duration(milliseconds: 20), (){

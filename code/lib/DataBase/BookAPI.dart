@@ -59,15 +59,31 @@ class BookAPI{
   }
 
   static Map<String, dynamic> generateBookMap(Map<String, dynamic> book) {
+    String ISBN = "";
+    book["industryIdentifiers"].forEach((element){
+      if(element["type"].compareTo("ISBN_13") == 0)ISBN = element["identifier"];
+    });
     Map<String, dynamic> bookMap = {
+      "ISBN": ISBN,
       "title": book["title"],
-      "authors": book["authors"],
+      "authors": arrayToString(book["authors"]?? <dynamic>[]),
       "language":book["language"],
-      "categories": book["categories"],
+      "categories": arrayToString(book["categories"]?? <dynamic>[]),
       "description":book["description"],
     };
     return bookMap;
 
+  }
+
+  static String arrayToString(List<dynamic> strs){
+    String result = "";
+    bool first = true;
+    strs.forEach((str){
+      if(!first)result+=",";
+      result += str;
+      first = false;
+    });
+    return result;
   }
 
 

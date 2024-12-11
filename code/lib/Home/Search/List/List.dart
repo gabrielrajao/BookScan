@@ -1,51 +1,34 @@
 import 'package:flutter/material.dart';
 import '../../../style.dart';
+import '../../../DataBase/BookAPI.dart';
+import '../../../BookDetails/Reviewinfos.dart';
 
-List _carregarItens() {
+Future<List> _carregarItens(String name) async {
+  var books = await BookAPI.retrieveBookByName(name);
+  if((books[0] as Map<String,dynamic>).containsKey("error"))return [];
   List _itens = [];
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i <= 10 && i < books.length; i++) {
     Map<String, dynamic> item = Map();
-    item["titulo"] = "Livro ${i}";
-    item["descricao"] = "Clique aqui para saber mais";
+    item["titulo"] = "${books[i]["title"]}";
+    item["descricao"] = books[i]["description"]!= null?"${books[i]["description"]}":"Clique aqui para saber mais";
+    item["ISBN"] = books[i]["ISBN"];
     _itens.add(item);
   }
   return _itens;
 }
 
 void tapReact(context, _itens, indice) {
-//print("Clique com onTap ${indice}");
-  showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          elevation: double.infinity,
-          title: Text(_itens[indice]["titulo"]),
-          titleTextStyle: TextStyle(
-            fontSize: 20,
-            color: textColor,
-          ),
-          content: Text(_itens[indice]["descricao"]),
-          actions: <Widget>[
-            //definir widgets
-            TextButton(
-                onPressed: () {
-                  print("Selecionado sim");
-                  Navigator.pop(context);
-                },
-                child: Text("Sim")),
-            TextButton(
-                onPressed: () {
-                  print("Selecionado não");
-                  Navigator.pop(context);
-                },
-                child: Text("Não")),
-          ],
-        );
-      });
+  if(context.mounted) {
+    Navigator.popAndPushNamed(context, "/bookdetails",
+        arguments: Reviewinfos(
+            _itens[indice]["ISBN"], -1));
+  }
 }
 
-Container getLista() {
-  List _itens = _carregarItens();
+Future<Container> getLista(String search) async {
+  if(search.compareTo("") == 0)return Container(  child: Center(child: Text("Pesquise um livro pelo nome")));
+  List _itens = await _carregarItens(search);
+  if(_itens.length == 0)return Container(  child: Center(child: Text("Nenhum livro encontrado")));
   return Container(
     child: ListView.builder(
         itemCount: _itens.length,
@@ -60,8 +43,18 @@ Container getLista() {
                 onTap: () {
                   tapReact(context, _itens, indice);
                 },
-                title: Text(_itens[indice]["titulo"], style: TextStyle(color: textColor),),
-                subtitle: Text(_itens[indice]["descricao"], style: TextStyle(color:textColor),),
+                title: Text(
+                  _itens[indice]["titulo"],
+                  style: TextStyle(color: textColor),
+                  maxLines: 1, // Limita o texto a uma linha
+                  overflow: TextOverflow.ellipsis, // Adiciona "..." no final se o texto for longo demais
+                ),
+                subtitle: Text(
+                  _itens[indice]["descricao"],
+                  style: TextStyle(color: textColor),
+                  maxLines: 1, // Opcional: também pode truncar a descrição
+                  overflow: TextOverflow.ellipsis,
+                ),
               ));
         }),
   );
